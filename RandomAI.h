@@ -6,6 +6,6 @@ class RandomAI : public AI
 	public:
 		RandomAI(){};
 		~RandomAI(){};
-		void move();
+		int move();
 
 };

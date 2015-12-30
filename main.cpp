@@ -7,22 +7,40 @@
 
 enum GAME_TYPE {AI_BATTLE, ONE_PLAYER, TWO_PLAYER};
 
-void aiBattle()
+void aiBattle(Board* gameBoard)
 {
 
 }
 
-void onePlayerGame()
+void onePlayerGame(Board* gameBoard)
 {
 
 }
 
-void twoPlayerGame()
+void twoPlayerGame(Board* gameBoard)
 {
-
+	Player* player1 = new Human();
+	player1->setSymbol('X');
+	Player* player2 = new Human();
+	player2->setSymbol('O');
+	while(!gameBoard->gameOver())
+	{
+		std::cout << "Player 1's turn\n";
+		while(!gameBoard->setSpace(player1->move(), player1->getSymbol()))
+		{
+			std::cout << "That was an invalid move. Please move again\n";
+		}
+		gameBoard->displayBoard();
+		std::cout << "Player 2's turn\n";
+		while(!gameBoard->setSpace(player2->move(), player2->getSymbol()))
+		{
+			std::cout << "That was an invalid move. Please move again\n";
+		}
+		gameBoard->displayBoard();
+	}
 }
 
-void menu()
+void menu(Board* gameBoard)
 {
 	int selection = 0, temp;
 
@@ -36,11 +54,11 @@ void menu()
 	{
 		switch(temp)
 		{
-			case 1: aiBattle();
+			case 1: aiBattle(gameBoard);
 			break;
-			case 2: onePlayerGame();
+			case 2: onePlayerGame(gameBoard);
 			break;
-			case 3: twoPlayerGame();
+			case 3: twoPlayerGame(gameBoard);
 			break;
 			default: std::cout << "Please select a valid option (1, 2, or 3)\n";
 			         std::cin >> temp;
@@ -65,7 +83,7 @@ void game(int gameType)
 int main()
 {
 	Board* gameBoard = new Board();
-	menu();
+	menu(gameBoard);
 	gameBoard->displayBoard();
 
 	return 0;

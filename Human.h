@@ -6,4 +6,5 @@ class Human : public Player
 	public:
 		Human(){};
 		~Human(){};
+		int move();
 };

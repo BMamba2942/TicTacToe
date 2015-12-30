@@ -6,5 +6,5 @@ class SmartAI : public AI
 {
 	public:
 		SmartAI(){};
-		void move();
+		int move();
 };

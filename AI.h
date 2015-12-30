@@ -6,6 +6,6 @@ class AI : public Player
 	public:
 		AI(){};
 		~AI(){};
-		virtual void move() = 0;
+		virtual int move() = 0;
 	private:
 };

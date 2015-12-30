@@ -6,10 +6,11 @@ public:
 	Board();
 	~Board();
 	int getSpaces();
-	bool validMove();
 	void displayBoard();
-	void setSpace(int, int, char);
+	bool setSpace(int, char);
+	bool gameOver();
 private:
 	char* board;
 	int spaces;
+	bool validMove(int space) { return (board[space] != ' ') ? false : true; }
 };

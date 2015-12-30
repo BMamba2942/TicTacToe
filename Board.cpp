@@ -29,7 +29,20 @@ void Board::displayBoard()
 	}
 }
 
-void Board::setSpace(int row, int column, char symbol)
+bool Board::setSpace(int space, char symbol)
 {
-	board[(row*3)+column] = symbol;
+	if(validMove(space))
+	{
+	   board[space] = symbol;
+	   --spaces;
+	   return true;
+	}
+	else
+		return false;
+}
+
+bool Board::gameOver()
+{
+	if(spaces == 0)
+		return true;
 }

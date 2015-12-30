@@ -1,6 +1,6 @@
 #include "SmartAI.h"
 
-void SmartAI::move()
+int SmartAI::move()
 {
-	return;
+	return 0;
 }

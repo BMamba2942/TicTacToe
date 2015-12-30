@@ -1,6 +1,6 @@
 #include "RandomAI.h"
 
-void RandomAI::move()
+int RandomAI::move()
 {
-	return;
+	return 0;
 }
