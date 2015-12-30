@@ -31,6 +31,7 @@ void twoPlayerGame(Board* gameBoard)
 			std::cout << "That was an invalid move. Please move again\n";
 		}
 		gameBoard->displayBoard();
+		if(gameBoard->gameOver()) break;
 		std::cout << "Player 2's turn\n";
 		while(!gameBoard->setSpace(player2->move(), player2->getSymbol()))
 		{
@@ -43,7 +44,7 @@ void twoPlayerGame(Board* gameBoard)
 void menu(Board* gameBoard)
 {
 	int selection = 0, temp;
-
+	bool correct = false;
 	std::cout << "Welcome to Tic Tac Toe!\n\n";
 	std::cout << "Please select the number of players participating:\n";
 	std::cout << "1. 0 players\n";
@@ -54,18 +55,19 @@ void menu(Board* gameBoard)
 	{
 		switch(temp)
 		{
-			case 1: aiBattle(gameBoard);
+			case 1: aiBattle(gameBoard); correct = true;
 			break;
-			case 2: onePlayerGame(gameBoard);
+			case 2: onePlayerGame(gameBoard); correct = true;
 			break;
-			case 3: twoPlayerGame(gameBoard);
+			case 3: twoPlayerGame(gameBoard); correct = true;
 			break;
 			default: std::cout << "Please select a valid option (1, 2, or 3)\n";
 			         std::cin >> temp;
+			break;
 		}
 
 	}
-	while(temp < 1 && temp > 3);
+	while(!correct);
 }
 
 void game(int gameType)
@@ -84,7 +86,6 @@ int main()
 {
 	Board* gameBoard = new Board();
 	menu(gameBoard);
-	gameBoard->displayBoard();
 
 	return 0;
 }

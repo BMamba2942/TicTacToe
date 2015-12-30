@@ -17,6 +17,130 @@ Board::~Board()
 	delete [] board;
 }
 
+bool Board::hasWon()
+{
+	/*Begin Horizontal Win checks*/
+	int count = 0;
+	char symbol = board[0]; //initialize symbol to find with first in search
+	if(symbol != ' ')
+	{
+		count++;
+		for(int i = 1; i < 3; ++i)
+		{
+			if(board[i] == symbol)
+				count++;
+			if(count == 3)
+				return true;
+		}
+	}
+
+	count = 0;
+	symbol = board[3];
+	if(symbol != ' ')
+	{
+		count++;
+		for(int i = 4; i < 6; ++i)
+		{
+			if(board[i] == symbol)
+				count++;
+			if(count == 3)
+				return true;
+		}
+	}
+
+
+	count = 0;
+	symbol = board[6];
+	if(symbol != ' ')
+	{
+		count++;
+		for(int i = 7; i < 9; ++i)
+		{
+			if(board[i] == symbol)
+				count++;
+			if(count == 3)
+				return true;
+		}
+	}
+
+	/*End Horizontal Win checks*/
+
+	/*Begin Diagonal Win checks*/
+	count = 0;
+	symbol = board[0];
+	if(symbol != ' ')
+	{
+		count++;
+		for(int i = 4; i < 9; i+=4)
+		{
+			if(board[i] == symbol)
+				count++;
+			if(count == 3)
+				return true;
+		}
+	}
+
+	count = 0;
+	symbol = board[2];
+	if(symbol != ' ')
+	{
+		count++;
+		for(int i = 4; i < 7; i+=2)
+		{
+			if(board[i] == symbol)
+				count++;
+			if(count == 3)
+				return true;
+		}
+	}
+	/*End Diagonal win checks*/
+
+	/*Begin Column win checks*/
+	count = 0;
+	symbol = board[0];
+	if(symbol != ' ')
+	{
+		count++;
+		for(int i = 3; i < 7; i+=3)
+		{
+			if(board[i] == symbol)
+				count++;
+			if(count == 3)
+				return true;
+		}
+	}
+
+	count = 0;
+	symbol = board[1];
+	if(symbol != ' ')
+	{
+		count++;
+		for(int i = 4; i < 8; i+=3)
+		{
+			if(board[i] == symbol)
+				count++;
+			if(count == 3)
+				return true;
+		}
+	}
+
+	count = 0;
+	symbol = board[2];
+	if(symbol != ' ')
+	{
+		count++;
+		for(int i = 5; i < 9; i+=3)
+		{
+			if(board[i] == symbol)
+				count++;
+			if(count == 3)
+				return true;
+		}
+	}
+
+	return false;
+}
+
 void Board::displayBoard()
 {
 	for(int i = 0; i < 9; ++i)
@@ -31,10 +155,12 @@ void Board::displayBoard()
 
 bool Board::setSpace(int space, char symbol)
 {
+	std::cout << "Spaces left = " << spaces << std::endl;
 	if(validMove(space))
 	{
 	   board[space] = symbol;
 	   --spaces;
+	   std::cout << "Spaces left = " << spaces << std::endl;
 	   return true;
 	}
 	else
@@ -43,6 +169,8 @@ bool Board::setSpace(int space, char symbol)
 
 bool Board::gameOver()
 {
-	if(spaces == 0)
+	if(spaces == 0 || hasWon())
 		return true;
+	else
+		return false;
 }
