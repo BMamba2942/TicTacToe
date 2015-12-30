@@ -7,5 +7,4 @@ class AI : public Player
 		AI(){};
 		~AI(){};
 		virtual int move() = 0;
-	private:
 };

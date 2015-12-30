@@ -17,6 +17,19 @@ Board::~Board()
 	delete [] board;
 }
 
+int* Board::getSpaces()
+{
+	int* spacesLeft = new int[9];
+	int count = 0;
+	for(int i = 0; i < 9; ++i)
+	{
+		if(board[i] == ' ')
+			spacesLeft[(count++)+1] = i;
+	}
+	spacesLeft[0] = count;
+	return spacesLeft;
+}
+
 bool Board::hasWon()
 {
 	/*Begin Horizontal Win checks*/
@@ -155,12 +168,10 @@ void Board::displayBoard()
 
 bool Board::setSpace(int space, char symbol)
 {
-	std::cout << "Spaces left = " << spaces << std::endl;
 	if(validMove(space))
 	{
 	   board[space] = symbol;
 	   --spaces;
-	   std::cout << "Spaces left = " << spaces << std::endl;
 	   return true;
 	}
 	else

@@ -5,7 +5,7 @@ class Board
 public:
 	Board();
 	~Board();
-	int getSpaces();
+	int* getSpaces();
 	void displayBoard();
 	bool setSpace(int, char);
 	bool gameOver();
