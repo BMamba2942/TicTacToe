@@ -21,7 +21,7 @@ int* Board::getSpaces()
 {
 	int* spacesLeft = new int[9];
 	int count = 0;
-	for(int i = 0; i < 9; ++i)
+	for(int i = 0; i < 10; ++i)
 	{
 		if(board[i] == ' ')
 			spacesLeft[(count++)+1] = i;

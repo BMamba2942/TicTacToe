@@ -1,5 +1,4 @@
 #include "Board.h"
-#include "AI.h"
 #include "RandomAI.h"
 #include "SmartAI.h"
 #include "Human.h"
@@ -87,6 +86,7 @@ void onePlayerGame(Board* gameBoard)
 				player1->setSymbol('X');
 				player1->setGameBoard(gameBoard);
 				player2->setSymbol('O');
+				gameLogic(gameBoard, player1, player2);
 
 		break;
 	}
