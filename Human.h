@@ -18,7 +18,7 @@ public:
 			std::cout << "Input invalid. Please select a valid row (1, 2, or 3)\n";
 			std::cin >> row;
 		}
-		std::cout << "1. Left Column\n2. Middle Column\n3.Right Column\n";
+		std::cout << "1. Left Column\n2. Middle Column\n3. Right Column\n";
 		std::cin >> column;
 		while(column < 1 || column > 3)
 		{

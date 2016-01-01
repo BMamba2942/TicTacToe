@@ -42,7 +42,7 @@ void onePlayerGame(Board* gameBoard)
 		std::cout << "Please select a valid option (1 for random, 2 for better AI)\n";
 		std::cin >> choice;
 	}
-	
+
 	std::cout << "Would you like to go first(3) or have the AI go first(4)?\n";
 	std::cin >> choice2;
 	while(choice2 != 3 && choice2 != 4)
@@ -50,7 +50,7 @@ void onePlayerGame(Board* gameBoard)
 		std::cout << "Please select a valid option (3 for you, 4 for the AI going first)\n";
 		std::cin >> choice2;
 	}
-	
+
 
 	switch(choice * choice2)
 	{
@@ -60,7 +60,7 @@ void onePlayerGame(Board* gameBoard)
 				player2->setGameBoard(gameBoard);
 				player1->setSymbol('X');
 				player2->setSymbol('O');
-				gameLogic(gameBoard, player1, player2); 
+				gameLogic(gameBoard, player1, player2);
 		break;
 
 		//Random AI, with AI going first
@@ -73,12 +73,22 @@ void onePlayerGame(Board* gameBoard)
 		break;
 
 		// Better AI, with player going first
-		case 6: std::cout << "Better AI not implemented yet :(\n";
+		case 6: player1 = new Human();
+				player2 = new SmartAI();
+				player1->setSymbol('X');
+				player2->setSymbol('O');
+				player2->setGameBoard(gameBoard);
+				gameLogic(gameBoard, player1, player2);
 		break;
 
 		// Better AI, with AI going first
-		case 8: std::cout << "Better AI not implemented yet :(\n";
-		break; 
+		case 8: player1 = new SmartAI();
+				player2 = new Human();
+				player1->setSymbol('X');
+				player1->setGameBoard(gameBoard);
+				player2->setSymbol('O');
+
+		break;
 	}
 
 }
@@ -90,23 +100,6 @@ void twoPlayerGame(Board* gameBoard)
 	Player* player2 = new Human();
 	player2->setSymbol('O');
 	gameLogic(gameBoard, player1, player2);
-	/*
-	while(!gameBoard->gameOver())
-	{
-		std::cout << "Player 1's turn\n";
-		while(!gameBoard->setSpace(player1->move(), player1->getSymbol()))
-		{
-			std::cout << "That was an invalid move. Please move again\n";
-		}
-		gameBoard->displayBoard();
-		if(gameBoard->gameOver()) break; //If the game has been won or there was a tie, break;
-		std::cout << "Player 2's turn\n";
-		while(!gameBoard->setSpace(player2->move(), player2->getSymbol()))
-		{
-			std::cout << "That was an invalid move. Please move again\n";
-		}
-		gameBoard->displayBoard();
-	}*/
 }
 
 void game(Board* gameBoard)

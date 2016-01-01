@@ -158,7 +158,7 @@ void Board::displayBoard()
 {
 	for(int i = 0; i < 9; ++i)
 	{
-		if((!((i+1) % 3))) 
+		if((!((i+1) % 3)))
 			std::cout << board[i] << std::endl;
 		else
 			std::cout << board[i] << '|';

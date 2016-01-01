@@ -6,6 +6,7 @@ public:
 	Board();
 	~Board();
 	int* getSpaces();
+	char getSpaceSymbol(int space){return board[space];}
 	void displayBoard();
 	bool setSpace(int, char);
 	bool gameOver();
