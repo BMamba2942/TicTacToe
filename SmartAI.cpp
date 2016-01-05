@@ -11,7 +11,8 @@ int SmartAI::move()
 {
 	gameBoard = getGameBoard();
 	char oppSymbol = (this->symbol == 'X') ? 'O' : 'X';
-	int* spacesAvailable = gameBoard->getSpaces();
+	int* spacesAvailable = gameBoard->getOpenSpaces();
+	int spacesLeft = gameBoard->getSpacesCount();
 	int winSpace = blockOrWin(this->symbol);
 	int blockedSpace = blockOrWin(oppSymbol);
 	if(winSpace != -1)
@@ -21,18 +22,20 @@ int SmartAI::move()
 		return blockedSpace;
 	}
 	else
-		return spacesAvailable[1+(rand() % spacesAvailable[0])];
-};
+		return spacesAvailable[(rand() % spacesLeft)];
+}
 
 int SmartAI::blockOrWin(char checkSymbol)
 {
-	int* spacesToCheck = gameBoard->getSpaces();
+	int* spacesToCheck = gameBoard->getOpenSpaces();
+	int spacesLeft = gameBoard->getSpacesCount();
 	int count = 0;
-	for(int i = 1; i < spacesToCheck[0]+1; ++i)
+	for(int i = 0; i < spacesLeft; ++i)
 	{
 		#ifdef DEBUG
 		  std::cout << "Space: " << spacesToCheck[i] << std::endl;
 		#endif
+		// Each case represents an empty space found on the board and the conditions required for the AI to make its move on that space
 		switch(spacesToCheck[i])
 		{
 			case 0:

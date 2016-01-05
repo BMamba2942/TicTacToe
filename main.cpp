@@ -73,7 +73,7 @@ void gameLogic(Board* gameBoard, Player* player1, Player* player2, bool showFeed
 
 void aiBattle(Board* gameBoard)
 {
-	int choice, choice1, choice2, games;
+	int choice, games;
 	Player* player1, *player2;
 
 	std::cout << "What type of AI game should be played?\n";
@@ -91,7 +91,6 @@ void aiBattle(Board* gameBoard)
 				std::cin >> games;
 				switch(aiTypesPrompt())
 				{
-					// RandomAI vs RandomAI
 					case 3: player1 = new RandomAI(gameBoard, 'X');
 							player2 = new RandomAI(gameBoard, 'O');
 					break;
@@ -139,6 +138,9 @@ void aiBattle(Board* gameBoard)
 
 	std::cout << "Player 1 stats: " << player1->getWins() << " wins, " << player1->getTies() << " ties, " << " and " << player1->getLosses() << " losses\n";
 	std::cout << "Player 2 stats: " << player2->getWins() << " wins, " << player2->getTies() << " ties, " << " and " << player2->getLosses() << " losses\n";
+
+	delete player1;
+	delete player2;
 }
 
 void onePlayerGame(Board* gameBoard)
@@ -190,6 +192,10 @@ void onePlayerGame(Board* gameBoard)
 		break;
 	}
 
+	// "Clean up, clean up..."
+	delete player1;
+	delete player2;
+
 }
 
 void twoPlayerGame(Board* gameBoard)
@@ -197,6 +203,8 @@ void twoPlayerGame(Board* gameBoard)
 	Player* player1 = new Human('X');
 	Player* player2 = new Human('O');
 	gameLogic(gameBoard, player1, player2, true);
+	delete player1;
+	delete player2;
 }
 
 void game(Board* gameBoard)
@@ -233,6 +241,6 @@ int main()
 {
 	Board* gameBoard = new Board();
 	game(gameBoard);
-
+	delete gameBoard;
 	return 0;
 }
