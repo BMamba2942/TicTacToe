@@ -5,8 +5,9 @@
 class Human : public Player
 {
 public:
-	Human(){};
-	~Human(){};
+	Human(){}
+	Human(char symbol) : Player(symbol){}
+	~Human(){}
 	int move()
 	{
 		int row, column;

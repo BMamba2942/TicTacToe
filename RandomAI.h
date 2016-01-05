@@ -8,7 +8,8 @@
 class RandomAI : public AI
 {
 public:
-	RandomAI()
+	RandomAI(){}
+	RandomAI(Board* gameBoard, char symbol) : AI(gameBoard, symbol)
 	{
 		srand(time(NULL));
 	}

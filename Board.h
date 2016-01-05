@@ -9,7 +9,8 @@ public:
 	char getSpaceSymbol(int space){return board[space];}
 	void displayBoard();
 	bool setSpace(int, char);
-	bool gameOver();
+	int gameOver();
+	void clearBoard();
 private:
 	char* board;
 	int spaces;

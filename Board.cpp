@@ -19,7 +19,7 @@ Board::~Board()
 
 int* Board::getSpaces()
 {
-	int* spacesLeft = new int[9];
+	int* spacesLeft = new int[10];
 	int count = 0;
 	for(int i = 0; i < 10; ++i)
 	{
@@ -28,6 +28,15 @@ int* Board::getSpaces()
 	}
 	spacesLeft[0] = count;
 	return spacesLeft;
+}
+
+void Board::clearBoard()
+{
+	for(int i = 0; i < 9; ++i)
+	{
+		board[i] = ' ';
+	}
+	spaces = 9;
 }
 
 bool Board::hasWon()
@@ -178,10 +187,14 @@ bool Board::setSpace(int space, char symbol)
 		return false;
 }
 
-bool Board::gameOver()
+int Board::gameOver()
 {
-	if(spaces == 0 || hasWon())
-		return true;
+	if(hasWon())
+	{
+		return 1; // A player has won the game
+	} 
+	else if(spaces == 0)
+		return 0; // There was a tie
 	else
-		return false;
+		return -1; // The game is still going
 }

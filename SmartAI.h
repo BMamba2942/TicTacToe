@@ -6,7 +6,8 @@
 class SmartAI : public AI
 {
 	public:
-		SmartAI(){};
+		SmartAI(){}
+		SmartAI(Board* gameBoard, char symbol): AI(gameBoard, symbol){srand(time(NULL));}
 		int move();
 	private:
 		int blockOrWin(char);

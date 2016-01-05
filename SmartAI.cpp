@@ -1,6 +1,6 @@
 #include "SmartAI.h"
 
-//#define DEBUG
+//#define DEBUG // Uncomment this to enable debugging output
 //Debugging includes here
 #ifdef DEBUG
    #include <iostream>
@@ -9,17 +9,16 @@
 
 int SmartAI::move()
 {
-	srand(time(NULL));
 	gameBoard = getGameBoard();
 	char oppSymbol = (this->symbol == 'X') ? 'O' : 'X';
 	int* spacesAvailable = gameBoard->getSpaces();
-	int blockedSpace = blockOrWin(oppSymbol);
 	int winSpace = blockOrWin(this->symbol);
-	if(blockedSpace != -1)
-		return blockedSpace;
-	else if(winSpace != -1)
-	{
+	int blockedSpace = blockOrWin(oppSymbol);
+	if(winSpace != -1)
 		return winSpace;
+	else if(blockedSpace != -1)
+	{
+		return blockedSpace;
 	}
 	else
 		return spacesAvailable[1+(rand() % spacesAvailable[0])];
