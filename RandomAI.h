@@ -17,8 +17,9 @@ public:
 	int move()
 	{
 		gameBoard = getGameBoard();
-		int* spacesAvailable = gameBoard->getSpaces();
-		return spacesAvailable[1+(rand() % spacesAvailable[0])];
+		int* spacesAvailable = gameBoard->getOpenSpaces();
+		int spacesLeft = gameBoard->getSpacesCount();
+		return spacesAvailable[(rand() % spacesLeft)];
 	}
 
 

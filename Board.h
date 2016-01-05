@@ -5,7 +5,8 @@ class Board
 public:
 	Board();
 	~Board();
-	int* getSpaces();
+	int* getOpenSpaces();
+	int getSpacesCount();
 	char getSpaceSymbol(int space){return board[space];}
 	void displayBoard();
 	bool setSpace(int, char);

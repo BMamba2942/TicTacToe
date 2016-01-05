@@ -17,17 +17,22 @@ Board::~Board()
 	delete [] board;
 }
 
-int* Board::getSpaces()
+int* Board::getOpenSpaces()
 {
-	int* spacesLeft = new int[10];
+	int* spacesAvailable = new int[this->spaces];
 	int count = 0;
-	for(int i = 0; i < 10; ++i)
+	for(int i = 0; i < 9; ++i)
 	{
 		if(board[i] == ' ')
-			spacesLeft[(count++)+1] = i;
+			spacesAvailable[(count++)] = i;
 	}
-	spacesLeft[0] = count;
-	return spacesLeft;
+
+	return spacesAvailable;
+}
+
+int Board::getSpacesCount()
+{
+	return this->spaces;
 }
 
 void Board::clearBoard()
