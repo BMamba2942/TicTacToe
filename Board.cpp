@@ -1,20 +1,15 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board()
+void Board::initBoard()
 {
-	board = new char[9];
+
 	for(int i = 0; i < 9; ++i)
 	{
-		board[i] = ' ';
+		board.push_back(' ');
 	}
 
 	spaces = 9;
-}
-
-Board::~Board()
-{
-	delete [] board;
 }
 
 int* Board::getOpenSpaces()

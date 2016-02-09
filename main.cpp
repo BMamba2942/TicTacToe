@@ -4,6 +4,8 @@
 #include "Human.h"
 #include <iostream>
 
+const int RANDOM_AI_PLAYER_FIRST = 3, RANDOM_AI_PLAYER_SECOND = 4, SMART_AI_PLAYER_FIRST = 6, SMART_AI_PLAYER_SECOND = 8;
+
 int aiTypesPrompt()
 {
 	int ai1, ai2;
@@ -77,7 +79,7 @@ void aiBattle(Board* gameBoard)
 	Player* player1, *player2;
 
 	std::cout << "What type of AI game should be played?\n";
-	std::cout << "1. Simulation\n2. Watch\n";
+	std::cout << "1. Simulation (no printing)\n2. Watch (prints board after every move)\n";
 	std::cin >> choice;
 	while(choice != 1 && choice != 2)
 	{
@@ -91,16 +93,16 @@ void aiBattle(Board* gameBoard)
 				std::cin >> games;
 				switch(aiTypesPrompt())
 				{
-					case 3: player1 = new RandomAI(gameBoard, 'X');
+					case RANDOM_AI_PLAYER_FIRST: player1 = new RandomAI(gameBoard, 'X');
 							player2 = new RandomAI(gameBoard, 'O');
 					break;
-					case 4: player1 = new RandomAI(gameBoard, 'X');
+					case RANDOM_AI_PLAYER_SECOND: player1 = new RandomAI(gameBoard, 'X');
 							player2 = new SmartAI(gameBoard, 'O');
 					break;
-					case 6: player1 = new SmartAI(gameBoard, 'X');
+					case SMART_AI_PLAYER_FIRST: player1 = new SmartAI(gameBoard, 'X');
 							player2 = new RandomAI(gameBoard, 'O');
 					break;
-					case 8: player1 = new SmartAI(gameBoard, 'X');
+					case SMART_AI_PLAYER_SECOND: player1 = new SmartAI(gameBoard, 'X');
 							player2 = new SmartAI(gameBoard, 'O');
 					break;
 				}
@@ -115,16 +117,16 @@ void aiBattle(Board* gameBoard)
 				std::cin >> games;
 				switch(aiTypesPrompt())
 				{
-					case 3: player1 = new RandomAI(gameBoard, 'X');
+					case RANDOM_AI_PLAYER_FIRST: player1 = new RandomAI(gameBoard, 'X');
 							player2 = new RandomAI(gameBoard, 'O');
 					break;
-					case 4: player1 = new RandomAI(gameBoard, 'X');
+					case RANDOM_AI_PLAYER_SECOND: player1 = new RandomAI(gameBoard, 'X');
 							player2 = new SmartAI(gameBoard, 'O');
 					break;
-					case 6: player1 = new SmartAI(gameBoard, 'X');
+					case SMART_AI_PLAYER_FIRST: player1 = new SmartAI(gameBoard, 'X');
 							player2 = new RandomAI(gameBoard, 'O');
 					break;
-					case 8: player1 = new SmartAI(gameBoard, 'X');
+					case SMART_AI_PLAYER_SECOND: player1 = new SmartAI(gameBoard, 'X');
 							player2 = new SmartAI(gameBoard, 'O');
 					break;
 				}
@@ -167,25 +169,25 @@ void onePlayerGame(Board* gameBoard)
 	switch(choice * choice2)
 	{
 		//random AI, with player going first
-		case 3: player1 = new Human('X');
+		case RANDOM_AI_PLAYER_FIRST: player1 = new Human('X');
 				player2 = new RandomAI(gameBoard, 'O');
 				gameLogic(gameBoard, player1, player2, true);
 		break;
 
 		//Random AI, with AI going first
-		case 4: player1 = new RandomAI(gameBoard, 'X');
+		case RANDOM_AI_PLAYER_SECOND: player1 = new RandomAI(gameBoard, 'X');
 				player2 = new Human('O');
 				gameLogic(gameBoard, player1, player2, true);
 		break;
 
 		// Better AI, with player going first
-		case 6: player1 = new Human('X');
+		case SMART_AI_PLAYER_FIRST: player1 = new Human('X');
 				player2 = new SmartAI(gameBoard, 'O');
 				gameLogic(gameBoard, player1, player2, true);
 		break;
 
 		// Better AI, with AI going first
-		case 8: player1 = new SmartAI(gameBoard, 'X');
+		case SMART_AI_PLAYER_SECOND: player1 = new SmartAI(gameBoard, 'X');
 				player2 = new Human('O');
 				gameLogic(gameBoard, player1, player2, true);
 
@@ -239,8 +241,8 @@ void game(Board* gameBoard)
 
 int main()
 {
-	Board* gameBoard = new Board();
-	game(gameBoard);
-	delete gameBoard;
+	Board gameBoard;
+	gameBoard.initBoard();
+	game(&gameBoard);
 	return 0;
 }

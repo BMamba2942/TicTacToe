@@ -1,10 +1,11 @@
 #pragma once
 
+#include <vector>
+
 class Board
 {
 public:
-	Board();
-	~Board();
+	void initBoard();
 	int* getOpenSpaces();
 	int getSpacesCount();
 	char getSpaceSymbol(int space){return board[space];}
@@ -13,7 +14,7 @@ public:
 	int gameOver();
 	void clearBoard();
 private:
-	char* board;
+	std::vector<char> board;
 	int spaces;
 	bool validMove(int space) { return (board[space] != ' ') ? false : true; }
 	bool hasWon();
