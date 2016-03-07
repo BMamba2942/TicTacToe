@@ -7,6 +7,6 @@ class AI : public Player
 		AI(){}
 		AI(Board* gameBoard, char symbol) : Player(symbol){this->gameBoard = gameBoard;}
 		~AI(){}
-		virtual int move() = 0;
+		virtual void move(int&, int&) = 0;
 	private:
 };

@@ -8,14 +8,14 @@ public:
 	void initBoard();
 	int* getOpenSpaces();
 	int getSpacesCount();
-	char getSpaceSymbol(int space){return board[space];}
+	char getSpaceSymbol(int row, int column){return board[row][column];}
 	void displayBoard();
-	bool setSpace(int, char);
-	int gameOver();
+	bool setSpace(int, int, char);
+	int gameOver(char);
 	void clearBoard();
 private:
-	std::vector<char> board;
+	char board[3][3];
 	int spaces;
-	bool validMove(int space) { return (board[space] != ' ') ? false : true; }
-	bool hasWon();
+	bool validMove(int row, int column) { return (board[row][column] != ' ') ? false : true; }
+	bool hasWon(char);
 };

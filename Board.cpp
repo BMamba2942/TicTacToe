@@ -4,9 +4,10 @@
 void Board::initBoard()
 {
 
-	for(int i = 0; i < 9; ++i)
+	for(int i = 0; i < 3; ++i)
 	{
-		board.push_back(' ');
+		for(int j = 0; j < 3; ++j)
+			board[i][j] = ' ';
 	}
 
 	spaces = 9;
@@ -16,10 +17,11 @@ int* Board::getOpenSpaces()
 {
 	int* spacesAvailable = new int[this->spaces];
 	int count = 0;
-	for(int i = 0; i < 9; ++i)
+	for(int i = 0; i < 3; ++i)
 	{
-		if(board[i] == ' ')
-			spacesAvailable[(count++)] = i;
+		for(int j = 0; j < 3; ++j)
+			if(board[i][j] == ' ')
+				spacesAvailable[(count++)] = (i*3)+j;
 	}
 
 	return spacesAvailable;
@@ -32,154 +34,99 @@ int Board::getSpacesCount()
 
 void Board::clearBoard()
 {
-	for(int i = 0; i < 9; ++i)
+	for(int i = 0; i < 3; ++i)
 	{
-		board[i] = ' ';
+		for(int j = 0; j < 3; ++j)
+			board[i][j] = ' ';
 	}
 	spaces = 9;
 }
 
-bool Board::hasWon()
+bool Board::hasWon(char symbol)
 {
-	/*Begin Horizontal Win checks*/
+	if(spaces > 4) return false; //Impossible to win the game before turn 5
+
+	//Begin Row Win checks
 	int count = 0;
-	char symbol = board[0]; //initialize symbol to find with first in search
-	if(symbol != ' ')
+	
+	for(int i = 0; i < 3; ++i)
 	{
-		count++;
-		for(int i = 1; i < 3; ++i)
+		for(int j = 0; j < 3; ++j)
 		{
-			if(board[i] == symbol)
+			if(board[i][j] == symbol)
 				count++;
-			if(count == 3)
-				return true;
 		}
+		if(count == 3) 
+			return true;
+		else 
+			count = 0;
+
 	}
 
-	count = 0;
-	symbol = board[3];
-	if(symbol != ' ')
+	//End Row Win checks
+
+	//Begin column checks
+	for(int i = 0; i < 3; ++i)
 	{
-		count++;
-		for(int i = 4; i < 6; ++i)
+		for(int j = 0; j < 3; ++j)
 		{
-			if(board[i] == symbol)
+			if(board[j][i] == symbol)
 				count++;
-			if(count == 3)
-				return true;
 		}
+		if(count == 3)
+			return true;
+		else
+			count = 0;
 	}
 
+	//End column checks
 
-	count = 0;
-	symbol = board[6];
-	if(symbol != ' ')
+	//Begin diagonal checks
+	for(int i = 0; i < 3; ++i)
 	{
-		count++;
-		for(int i = 7; i < 9; ++i)
-		{
-			if(board[i] == symbol)
-				count++;
-			if(count == 3)
-				return true;
-		}
+		if(board[i][i] == symbol)
+			count++;
 	}
 
-	/*End Horizontal Win checks*/
+	if(count == 3)
+		return true;
+	else
+		count = 0;
 
-	/*Begin Diagonal Win checks*/
-	count = 0;
-	symbol = board[0];
-	if(symbol != ' ')
+	int j = 2;
+	for(int i = 0; i < 3; ++i)
 	{
-		count++;
-		for(int i = 4; i < 9; i+=4)
-		{
-			if(board[i] == symbol)
-				count++;
-			if(count == 3)
-				return true;
-		}
+		if(board[i][j] == symbol)
+			count++;
+		--j;
 	}
 
-	count = 0;
-	symbol = board[2];
-	if(symbol != ' ')
-	{
-		count++;
-		for(int i = 4; i < 7; i+=2)
-		{
-			if(board[i] == symbol)
-				count++;
-			if(count == 3)
-				return true;
-		}
-	}
-	/*End Diagonal win checks*/
+	if(count == 3)
+		return true;
+	else
+		count = 0;
 
-	/*Begin Column win checks*/
-	count = 0;
-	symbol = board[0];
-	if(symbol != ' ')
-	{
-		count++;
-		for(int i = 3; i < 7; i+=3)
-		{
-			if(board[i] == symbol)
-				count++;
-			if(count == 3)
-				return true;
-		}
-	}
-
-	count = 0;
-	symbol = board[1];
-	if(symbol != ' ')
-	{
-		count++;
-		for(int i = 4; i < 8; i+=3)
-		{
-			if(board[i] == symbol)
-				count++;
-			if(count == 3)
-				return true;
-		}
-	}
-
-	count = 0;
-	symbol = board[2];
-	if(symbol != ' ')
-	{
-		count++;
-		for(int i = 5; i < 9; i+=3)
-		{
-			if(board[i] == symbol)
-				count++;
-			if(count == 3)
-				return true;
-		}
-	}
-
+	//End diagonal checks
 	return false;
 }
 
 void Board::displayBoard()
 {
-	for(int i = 0; i < 9; ++i)
+	for(int i = 0; i < 3; ++i)
 	{
-		if((!((i+1) % 3)))
-			std::cout << board[i] << std::endl;
-		else
-			std::cout << board[i] << '|';
+		int j;
+		for(j = 0; j < 2; ++j)
+			std::cout << board[i][j] << '|';
+		std::cout << board[i][j] << std::endl;
 
 	}
 }
 
-bool Board::setSpace(int space, char symbol)
+bool Board::setSpace(const int row, const int column, char symbol)
 {
-	if(validMove(space))
+	if(validMove(row, column))
 	{
-	   board[space] = symbol;
+	   board[row][column] = symbol;
 	   --spaces;
 	   return true;
 	}
@@ -187,9 +134,9 @@ bool Board::setSpace(int space, char symbol)
 		return false;
 }
 
-int Board::gameOver()
+int Board::gameOver(char symbol)
 {
-	if(hasWon())
+	if(hasWon(symbol))
 	{
 		return 1; // A player has won the game
 	} 

@@ -31,15 +31,19 @@ int aiTypesPrompt()
 void gameLogic(Board* gameBoard, Player* player1, Player* player2, bool showFeedback)
 {
 	int result;
-	while(gameBoard->gameOver() == -1)
+	int row, column;
+	while(gameBoard->getSpacesCount() > 0)
 	{
 		if(showFeedback) std::cout << "Player 1's turn\n";
-		while(!gameBoard->setSpace(player1->move(), player1->getSymbol()))
+		player1->move(row, column); 
+		while(!gameBoard->setSpace(row, column, player1->getSymbol()))
 		{
 			std::cout << "That was an invalid move. Please move again\n";
+			if(showFeedback) gameBoard->displayBoard();
+			player1->move(row, column);
 		}
 		if(showFeedback) gameBoard->displayBoard();
-		result = gameBoard->gameOver();
+		result = gameBoard->gameOver(player1->getSymbol());
 		switch(result)
 		{
 			case 0: if(showFeedback) std::cout << "The game has ended in a tie.\n";
@@ -53,11 +57,14 @@ void gameLogic(Board* gameBoard, Player* player1, Player* player2, bool showFeed
 		}
 		if(result != -1) break; //If the game has been won or there was a tie, break;
 		if(showFeedback) std::cout << "Player 2's turn\n";
-		while(!gameBoard->setSpace(player2->move(), player2->getSymbol()))
+		player2->move(row, column);
+		while(!gameBoard->setSpace(row, column, player2->getSymbol()))
 		{
 			std::cout << "That was an invalid move. Please move again\n";
+			if(showFeedback) gameBoard->displayBoard();
+			player2->move(row, column);
 		}
-		result = gameBoard->gameOver();
+		result = gameBoard->gameOver(player2->getSymbol());
 		switch(result)
 		{
 			case 0: if(showFeedback) std::cout << "The game has ended in a tie.\n";
@@ -70,6 +77,7 @@ void gameLogic(Board* gameBoard, Player* player1, Player* player2, bool showFeed
 			break;
 		}
 		if(showFeedback) gameBoard->displayBoard();
+		if(result != -1) break;
 	}
 }
 

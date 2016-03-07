@@ -8,7 +8,7 @@ class SmartAI : public AI
 	public:
 		SmartAI(){}
 		SmartAI(Board* gameBoard, char symbol): AI(gameBoard, symbol){srand(time(NULL));}
-		int move();
+		void move(int&, int&);
 	private:
-		int blockOrWin(char);
+		bool blockOrWin(int&, int&, char);
 };

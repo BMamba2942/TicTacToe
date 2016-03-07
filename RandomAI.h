@@ -14,12 +14,15 @@ public:
 		srand(time(NULL));
 	}
 	~RandomAI(){};
-	int move()
+	void move(int& row, int& column)
 	{
 		gameBoard = getGameBoard();
 		int* spacesAvailable = gameBoard->getOpenSpaces();
 		int spacesLeft = gameBoard->getSpacesCount();
-		return spacesAvailable[(rand() % spacesLeft)];
+		int selection = spacesAvailable[(rand() % spacesLeft)];
+
+		row = selection / 3;
+		column = selection - (row * 3);
 	}
 
 

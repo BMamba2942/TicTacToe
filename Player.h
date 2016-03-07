@@ -17,7 +17,7 @@ class Player
 		int getWins(){return wins;}
 		int getTies(){return ties;}
 		int getLosses(){return losses;}
-		virtual int move() = 0;
+		virtual void move(int&, int&) = 0;
 	protected:
 		char symbol;
 		Board* gameBoard;
