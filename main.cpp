@@ -4,7 +4,8 @@
 #include "Human.h"
 #include <iostream>
 
-const int RANDOM_AI_PLAYER_FIRST = 3, RANDOM_AI_PLAYER_SECOND = 4, SMART_AI_PLAYER_FIRST = 6, SMART_AI_PLAYER_SECOND = 8;
+const int RANDOM_AI_PLAYER_FIRST = 3, RANDOM_AI_PLAYER_SECOND = 4, SMART_AI_PLAYER_FIRST = 6, 
+		  SMART_AI_PLAYER_SECOND = 8, MESSUP_FUN = 5;
 
 int aiTypesPrompt()
 {
@@ -221,29 +222,52 @@ void game(Board* gameBoard)
 {
 	int selection = 0, temp;
 	bool correct = false;
-	std::cout << "Welcome to Tic Tac Toe!\n\n";
-	std::cout << "Please select the number of players participating:\n";
-	std::cout << "1. 0 players\n";
-	std::cout << "2. 1 player\n";
-	std::cout << "3. 2 players\n";
-	std::cin >> temp;
+	char answer = 'N';
+
 	do
 	{
-		switch(temp)
+		std::cout << "Welcome to Tic Tac Toe!\n\n";
+		std::cout << "Please select the number of players participating:\n";
+		std::cout << "1. 0 players\n";
+		std::cout << "2. 1 player\n";
+		std::cout << "3. 2 players\n";
+		std::cin >> temp;
+		do
 		{
-			case 1: aiBattle(gameBoard); correct = true;
-			break;
-			case 2: onePlayerGame(gameBoard); correct = true;
-			break;
-			case 3: twoPlayerGame(gameBoard); correct = true;
-			break;
-			default: std::cout << "Please select a valid option (1, 2, or 3)\n";
-			         std::cin >> temp;
-			break;
-		}
+			switch(temp)
+			{
+				case 1: aiBattle(gameBoard); correct = true;
+				break;
+				case 2: onePlayerGame(gameBoard); correct = true;
+				break;
+				case 3: twoPlayerGame(gameBoard); correct = true;
+				break;
+				default: std::cout << "Please select a valid option (1, 2, or 3)\n";
+				         std::cin >> temp;
+				break;
+			}
 
+		}
+		while(!correct);
+		std::cout << "Would you like to run again? (Y for yes or N for no)\n";
+		std::cin >> answer;
+		while(answer != 'y' && answer != 'Y' && answer != 'n' && answer != 'N')
+		{
+			if(messUp < MESSUP_FUN)
+			{
+				std::cout << "Please enter Y for yes or N for no\n";
+				messUp++;
+				std::cin >> answer;
+			}
+			else
+			{
+				std::cout << "You had one job....answer with a Y or an N...\n";
+				std::cin >> answer;
+			}
+		}
+		
 	}
-	while(!correct);
+	while(answer == 'y' || answer == 'Y');
 }
 
 
